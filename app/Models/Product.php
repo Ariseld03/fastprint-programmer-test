@@ -50,7 +50,7 @@ class Product extends Model
 
      public function enableToSellOnly()
     {
-        return $this->select('
+        $data['produk'] = $this->select('
                 produk.*,
                 kategori.nama_kategori,
                 status.nama_status
@@ -59,6 +59,8 @@ class Product extends Model
             ->join('status', 'status.id_status = produk.status_id')
             ->where('status.nama_status', 'Bisa Dijual')
             ->orderBy('produk.id_produk', 'DESC')
-            ->findAll();
+            ->paginate(20);
+            $data['pager'] = $this->pager;
+        return $data;
     }
 }

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Product;
 use App\Models\Category;
+use App\Services\FastprintAPI;
 
 class ProductController extends BaseController
 {
@@ -20,8 +21,11 @@ class ProductController extends BaseController
 
     public function index()
     {
+        $api = new FastprintAPI();
+        $apiDebug=$api->fetch();
         return view('product/index', [
-            'produk' => $this->modelProduct->enableToSellOnly()
+            'produk' => $this->modelProduct->enableToSellOnly(),
+            'apiDebug' => $apiDebug
         ]);
     }
 

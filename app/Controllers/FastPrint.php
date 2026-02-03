@@ -18,11 +18,8 @@ class FastPrint extends BaseController
         $categoryModel= new Category();
         $statusModel= new Status();
         $response = $api->fetch();
-         if ($response['error'] !== 0) {
-            return $this->response->setJSON($response);
-        }
         $insert=[];
-        foreach($response['data'] as $product){
+        foreach($response['body']['data'] as $product){
                
             // dd([
             //     'api_value' => $item['kategori'],
@@ -39,6 +36,7 @@ class FastPrint extends BaseController
                 'kategori_id'=>$kategoriId,
                 'status_id'=>$statusId,
             ];
+            return $this->response->setJSON($insert);   
         }
         $productModel->insertBatch($insert);
     }

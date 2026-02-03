@@ -19,7 +19,7 @@
         }, 3000);
     </script>
 <?php endif; ?>
-
+<?php $pager = $produk['pager'];  ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -57,7 +57,7 @@
     <th>Aksi</th>
 </tr>
 
-<?php foreach ($produk as $i => $row): ?>
+<?php foreach ($produk['produk'] as $i => $row): ?>
 <tr>
     <td><?= $i+1 ?></td>
     <td><?= esc($row['nama_produk']) ?></td>
@@ -79,5 +79,33 @@
 <?php endforeach ?>
 </table>
 
+<div class ="pagination" style="margin-top:20px;">
+    <?= $pager->links() ?>
+</div>
+
+<h3>API Debug</h3>
+
+<div style="margin-top:20px; padding:15px; border:1px solid #ccc;">
+    <strong>Status Code:</strong>
+    <?= esc($apiDebug['status']) ?>
+</div>
+<div style="margin-top:20px;">
+    <h4>Response Body</h4>
+    <pre style="background:#f9fafb; padding:15px; max-height:300px; overflow:auto;">
+<?= esc(json_encode($apiDebug['body'], JSON_PRETTY_PRINT)) ?>
+    </pre>
+</div>
+<div style="margin-top:20px;">
+    <h4>Response Headers</h4>
+    <pre style="background:#f3f4f6; padding:15px;">
+<?= esc(print_r($apiDebug['headers'], true)) ?>
+    </pre>
+</div>
+<div style="margin-top:20px;">
+    <h4>Cookies</h4>
+    <pre style="background:#fefce8; padding:15px;">
+<?= esc($apiDebug['cookies'] ?: 'Tidak ada cookie') ?>
+    </pre>
+</div>
 </body>
 </html>
