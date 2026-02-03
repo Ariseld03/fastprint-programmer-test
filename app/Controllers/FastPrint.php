@@ -19,13 +19,7 @@ class FastPrint extends BaseController
         $statusModel= new Status();
         $response = $api->fetch();
         $insert=[];
-        foreach($response['body']['data'] as $product){
-               
-            // dd([
-            //     'api_value' => $item['kategori'],
-            //     'api_hex'   => bin2hex($item['kategori']),
-            // ]);
-
+        foreach($response['body']['data'] as $product){             
             $kategoriId=$categoryModel->getOrCreateIdByName($product['kategori']);
             $statusId=$statusModel->getOrCreateIdByName($product['status']);
             
